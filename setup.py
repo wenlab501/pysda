@@ -43,6 +43,8 @@ setup(
         "matplotlib",
         "seaborn",
         "datetime",
+        "dateutil",
+        "imageio",
         "tapitas",
         "mstdbscan"
     ],
