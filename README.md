@@ -77,9 +77,9 @@ This will download the pysda from pypi.
 - mstdbscan: the core algorithm for MST-DBSCAN
 
 ## Tutorials
-- The tutorial for using TaPiTaS in pySDA:
+- The tutorial for using TaPiTaS in pySDA:  
 https://github.com/wenlab501/pysda/blob/master/pysda-taipitas-tutorial.ipynb
-- The tutorial for using MST-DBSCAN in pySDA:
+- The tutorial for using MST-DBSCAN in pySDA:  
 https://github.com/wenlab501/pysda/blob/master/pysda-mstdbscan%20tutorial.ipynb
 
 ## License
