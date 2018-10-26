@@ -6,9 +6,9 @@ a python Suite for Diffusion Analysis (for python 3.5 and above)
 
 This package currently included the two diffusion analysis algorithms:
 
-1. TaPiTaS: A geo-computational algorithm for exploring the structure of diffusion progression in time and space. Scientific Reports. 
+1. TaPiTaS: A geo-computational algorithm for exploring the structure of diffusion progression in time and space. Scientific Reports.
    https://www.nature.com/articles/s41598-017-12852-z
-2. MST-DBSCAN: Characterizing Diffusion Dynamics of Disease Clustering: A Modified Space–Time DBSCAN (MST-DBSCAN) Algorithm. Annals of the American Association of Geographers. 
+2. MST-DBSCAN: Characterizing Diffusion Dynamics of Disease Clustering: A Modified Space–Time DBSCAN (MST-DBSCAN) Algorithm. Annals of the American Association of Geographers.
    https://www.tandfonline.com/doi/full/10.1080/24694452.2017.1407630
 
 ## Install
@@ -17,7 +17,7 @@ You can choose one of the following to install pySDA to your python environment.
 
 ### 1. download then pip install
 
-1. download the package by clicking the green button (Clone or download), choose Download ZIP. 
+1. download the package by clicking the green button (Clone or download), choose Download ZIP.
 
 2. extract the zip file to your working directory
 
@@ -55,26 +55,30 @@ This is also the same as above.
 
 ### 4. pip install from pypi
 
- in cmd: 
+ in cmd:
 
 ```
 pip install pysda
 ```
 
-This will download the pysda from pypi. 
+This will download the pysda from pypi.
 
 
 
 ## Dependency
 
 - numpy, scipy: for calculations, including spatial indexing and querying
-- pandas, geopandas: for data manipulation and result preparation 
-- shapely: deal with the geometry 
+- pandas, geopandas: for data manipulation and result preparation
+- shapely: deal with the geometry
 - descartes, matplotlib, seaborn: for making maps
 - python-dateutil: deal with the date conversion
 - imageio: animated figure exporting
 - tapitas: the core algorithm for TaPiTas
 - mstdbscan: the core algorithm for MST-DBSCAN
+
+## Tutorials
+- The tutorial for using TaPiTaS in pySDA: https://github.com/wenlab501/pysda/blob/master/pysda-taipitas-tutorial.ipynb
+- The tutorial for using MST-DBSCAN in pySDA: https://github.com/wenlab501/pysda/blob/master/pysda-mstdbscan%20tutorial.ipynb
 
 ## License
 
