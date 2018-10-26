@@ -18,7 +18,7 @@ def get_bounds(nodes, subclusters, prog_links):
     return minx, miny, maxx, maxy
 
 def get_top_groups(nodes, top_groups=5):
-    chids = nodes['chain_id'].tolist()
+    chids = nodes['chid'].tolist()
     chidset = list(set(chids))
     counts = [ chids.count(c) for c in chidset ]
     ccset = sorted([ (co,ch) for co,ch in zip(counts,chidset) ], reverse=True)
@@ -31,7 +31,7 @@ def get_top_groups(nodes, top_groups=5):
             tops.append(ch)
         i+=1
         if i>=len(chidset):
-            print('Only {} chains are found, using {} subclusters to make figures.'.format(str(len(top)), str(i-1)))
+            print('Only {} chains are found, using {} subclusters to make figures.'.format(str(len(tops)), str(i-1)))
             break
     return tops
 
@@ -39,7 +39,7 @@ def get_nodes(nodes, tglist, colors, other_c='xkcd:light grey'):
     nodes2 = {'other':{'xx':[], 'yy':[], 'cc':other_c}}
     for g in tglist:
         nodes2[g] = {'xx':[], 'yy':[], 'cc':colors[tglist.index(g)]}
-    chids = nodes['chain_id'].tolist()
+    chids = nodes['chid'].tolist()
     xx = nodes['xx'].tolist()
     yy = nodes['yy'].tolist()
     for ch,x,y in zip(chids, xx, yy):
@@ -55,7 +55,7 @@ def get_subcs(subclusters, tglist, colors, other_c='xkcd:light grey'):
     subclusters2 = {'other':{'pc':[], 'c':other_c}}
     for g in tglist:
         subclusters2[g] = {'pc':[], 'c':colors[tglist.index(g)]}
-    chids = subclusters['chain_id'].tolist()
+    chids = subclusters['chid'].tolist()
     geoms = subclusters['geometry'].tolist()
     patches = []
     for i in range(len(chids)):
@@ -118,7 +118,7 @@ def saveFigure(resultsGDF, dirpath='.', prefix='tpt_', bg_polys=[], bbox=None, v
     subclusters = resultsGDF['subclusters']
     prog_links = resultsGDF['prog_links']
 
-    if nodes['chain_id'].tolist()[0]=='-':
+    if nodes['chid'].tolist()[0]=='-':
         print('no clusters found returning None')
         return None
 
@@ -136,11 +136,14 @@ def saveFigure(resultsGDF, dirpath='.', prefix='tpt_', bg_polys=[], bbox=None, v
     subclusters3 = get_subcs(subclusters, tglist, colors)
     prog_links2 = get_plinks(prog_links, tglist, colors)
 
+    fig = plt.figure(figsize=(12, 10))
+
     gs = gridspec.GridSpec(3,6)
-    ax1 = plt.subplot(gs[0:2, 0:2])
-    ax2 = plt.subplot(gs[0:2, 2:4])
-    ax3 = plt.subplot(gs[0:2, 4:6])
-    ax4 = plt.subplot(gs[2, :])
+    ax1 = fig.add_subplot(gs[0:2, 0:2])
+    ax2 = fig.add_subplot(gs[0:2, 2:4])
+    ax3 = fig.add_subplot(gs[0:2, 4:6])
+    ax4 = fig.add_subplot(gs[2, :])
+
 
     ax1.scatter(nodes2['other']['xx'], nodes2['other']['yy'], c=nodes2['other']['cc'], s=1)
     ax2.add_collection(subclusters3['other']['pc2'])
@@ -165,6 +168,7 @@ def saveFigure(resultsGDF, dirpath='.', prefix='tpt_', bg_polys=[], bbox=None, v
     ax3.set_title('(c) progression link', loc='left')
     ax4.set_title('(d) case by time', loc='left')
 
+    plt.setp(ax4.get_xticklabels(), rotation=45)
     plt.tight_layout()
     fname = os.path.join(dirpath, prefix+'figure.png')
     plt.savefig(fname, dpi=128, bbox_inches='tight')

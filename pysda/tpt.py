@@ -55,23 +55,35 @@ class Tapitas(object):
             print("prepare results table")
             self.res_obj = self.PG.results
 
-            self.results = dict(
-                summary =  self.res_obj.get_summary_df(),
+            summary = self.res_obj.get_summary_df()
+            summary = summary.rename(index=dict(clusterno='sub-cluster'))
+            results = dict(
+                summary =  summary,
                 nodes = self.res_obj.get_node_df(),
                 slinks = self.res_obj.get_final_slinks_df(),
                 npairs = self.res_obj.get_final_nlinks_df(),
                 subclusters = self.res_obj.get_cluster_df(),
                 prog_links = self.res_obj.get_progress_df(),
             )
-            self.resultsGDF = dict(
+            resultsGDF = dict(
                 nodes = self.res_obj.get_node_gdf(),
                 slinks = self.res_obj.get_final_slinks_gdf(),
                 npairs = self.res_obj.get_final_nlinks_gdf(),
                 subclusters = self.res_obj.get_cluster_gdf(),
                 prog_links = self.res_obj.get_progress_gdf(),
             )
+            self.results = {}
+            for tab in results.keys():
+                if not(tab=='summary'):
+                    self.results[tab] = self.__convert_time(tab, results[tab])
+                else:
+                    self.results[tab] = summary
+            self.resultsGDF = {}
+            for tab in resultsGDF.keys():
+                self.resultsGDF[tab] = self.__convert_time(tab, resultsGDF[tab])
+
             print("prepare result done")
-            self.summary = self.results['summary']
+            self.summary = summary
 
     def getDF(self, tab):
         if tab in self.resultsGDF:
@@ -104,7 +116,8 @@ class Tapitas(object):
             fp = os.path.join(dirpath, fn)
             check_dir(fp)
             #print(results[tab].head())
-            table = self.__convert_time(tab, self.results[tab])
+            #table = self.__convert_time(tab, self.results[tab])
+            table = self.results[tab]
             table.to_csv(fp, index_label='ind')
 
     def output_shp(self, dirpath='.', prefix='tpt_', vno=16, dev_scale=1.5, zip_it=False):
@@ -114,7 +127,8 @@ class Tapitas(object):
             fp = os.path.join(dirpath, fn)
             check_dir(fp)
             #print(resultsGDF[tab].head())
-            table = self.__convert_time(tab, self.resultsGDF[tab])
+            #table = self.__convert_time(tab, self.resultsGDF[tab])
+            table = self.resultsGDF[tab]
             table.to_file(filename=fp, driver='ESRI Shapefile')
             if zip_it:
                 fn = prefix+tab+'.zip'
