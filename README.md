@@ -80,7 +80,7 @@ This will download the pysda from pypi.
 - The tutorial for using TaPiTaS in pySDA:  
 https://github.com/wenlab501/pysda/blob/master/pysda-taipitas-tutorial.ipynb
 - The tutorial for using MST-DBSCAN in pySDA:  
-https://github.com/wenlab501/pysda/blob/master/pysda-mstdbscan%20tutorial.ipynb
+https://github.com/wenlab501/pysda/blob/master/pysda-mstdbscan-tutorial.ipynb
 
 ## License
 
